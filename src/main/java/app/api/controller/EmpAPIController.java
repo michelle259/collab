@@ -6,11 +6,19 @@ import app.entity.EmpRequestDto;
 import app.repository.DeptRepository;
 import app.repository.EmpRepository;
 import lombok.RequiredArgsConstructor;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Collections;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
 
 @RequiredArgsConstructor
 @RestController
@@ -19,10 +27,24 @@ public class EmpAPIController {
     private final EmpRepository empRepository;
     private final DeptRepository deptRepository;
 
+    @GetMapping("/api/emps")
+    public Object getAllEmployees() {
+        List<Emp> employees = empRepository.findAll();
+        if (employees.isEmpty()) {
+            return Map.of("msg", "사원정보가 존재하지 않습니다");
+        }
+        return employees;
+    }
 
-    @GetMapping("/api/emp/test")
-    public ResponseEntity test() {
-        return ResponseEntity.ok(null);
+    @GetMapping("/api/{pid}")
+    public Object getEmployee(@PathVariable Integer pid) {
+        Optional<Emp> employee = empRepository.findById(pid);
+        if (employee.isEmpty()) {
+            return Map.of("msg", "사원정보가 존재하지 않습니다");
+        }
+        return employee;
+
+
     }
 
     @PutMapping("/api/emp/{empno}")
@@ -45,7 +67,7 @@ public class EmpAPIController {
             return ResponseEntity.ok(emp);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(Collections.singletonMap("msg", "NOT FOUND w/ EMPNO"));
+                    .body(Collections.singletonMap("msg", "사원정보가 존재하지 않습니다"));
         }
     }
 }
