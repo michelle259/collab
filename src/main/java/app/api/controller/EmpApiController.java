@@ -1,12 +1,9 @@
 package app.api.controller;
 
-import java.util.List;
-import java.util.Map;
-
-
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+
 import org.springframework.web.bind.annotation.RestController;
 
 import app.entity.Emp;
@@ -16,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequiredArgsConstructor
 public class EmpApiController {
+
 	
 	private final EmpRepository empRepository;
 	@GetMapping("/api/emp-test")
