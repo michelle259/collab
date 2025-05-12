@@ -10,3 +10,4 @@ import app.entity.Emp;
 public interface EmpRepository extends JpaRepository<Emp, Integer>{
 
 }
+
