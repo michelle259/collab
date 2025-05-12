@@ -22,7 +22,6 @@ public class DeptAPIController {
 	
 	private final DeptService deptService;
 	
-	
 	@GetMapping("/git")
 	public String gitApi() {
 		return "git controller";
@@ -49,6 +48,8 @@ public class DeptAPIController {
 	@PostMapping("/depts")
 	public Dept registerDept(@RequestBody Dept newDept) {
 		Dept dept = deptService.registerDept(newDept);
+		
+		
 		return dept;
 	}
 	
