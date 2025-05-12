@@ -21,9 +21,8 @@ public class EmpApiController {
 	
 	
 	@PostMapping("/api/emp")
-	public Emp empInsert(@RequestBody Emp emp) {
+	public Emp registerEmp(@RequestBody Emp emp) {
 		
-		return empRepository.save(emp);
-		
+		return empRepository.save(emp);	
 	}
 }
