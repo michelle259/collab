@@ -3,7 +3,11 @@ package app.api.controller;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import app.entity.Emp;
@@ -23,4 +27,17 @@ public class EmpApiController {
         }
         return employees;
     }
+    
+    @GetMapping("/api/{pid}")
+    public Object getEmployee(@PathVariable Integer pid) {
+        Optional<Emp> employee = empRepository.findById(pid);
+        if (employee.isEmpty()) {
+            return Map.of("msg", "사원정보가 존재하지 않습니다");
+        }
+        return employee;
+        
+       
+    }
+    
+    
 }
